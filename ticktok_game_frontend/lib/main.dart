@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'game_board.dart';
+import 'game_logic.dart';
 
 // PUBLIC_INTERFACE
 void main() {
@@ -22,9 +24,6 @@ class TicTacToeApp extends StatelessWidget {
       primary: primaryColor,
       secondary: secondaryColor,
       surface: Colors.white,
-      // Use surface instead of background (deprecated)
-      // surface: instead of background
-      // Use onSurface instead of onBackground (deprecated)
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       onSurface: Colors.black87,
@@ -85,54 +84,9 @@ class TicTacToeScaffold extends StatelessWidget {
   /// Core UI scaffold for the Tic-Tac-Toe game.
   const TicTacToeScaffold({super.key});
 
-  // Empty 3x3 board for scaffolding.
-  Widget _buildBoardGrid(BuildContext context) {
-    final double cellSize = 80.0; // Responsive size can later be added
-    return Table(
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: List<TableRow>.generate(
-        3,
-        (row) => TableRow(
-          children: List<Widget>.generate(
-            3,
-            (col) => Container(
-              height: cellSize,
-              width: cellSize,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: row == 0 ? Colors.transparent : Colors.grey.shade300,
-                    width: 1.5,
-                  ),
-                  left: BorderSide(
-                    color: col == 0 ? Colors.transparent : Colors.grey.shade300,
-                    width: 1.5,
-                  ),
-                  right: BorderSide(
-                    color: col == 2 ? Colors.transparent : Colors.grey.shade300,
-                    width: 1.5,
-                  ),
-                  bottom: BorderSide(
-                    color: row == 2 ? Colors.transparent : Colors.grey.shade300,
-                    width: 1.5,
-                  ),
-                ),
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                '',
-                style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    // Placeholder for game status and restart button
+    // Game status, board, and restart button scaffolded around modular GameBoard
     return Scaffold(
       body: Center(
         child: ConstrainedBox(
@@ -151,8 +105,8 @@ class TicTacToeScaffold extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              // Game board
-              _buildBoardGrid(context),
+              // Game board (now modular)
+              const GameBoard(),
               // Restart button
               Padding(
                 padding: const EdgeInsets.only(top: 36.0),
