@@ -3,16 +3,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ticktok_game_frontend/main.dart';
 
 void main() {
-  testWidgets('App generation message displayed', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App should build and display UI scaffold', (WidgetTester tester) async {
+    // Build the TicTacToeApp and trigger a frame.
+    await tester.pumpWidget(const TicTacToeApp());
 
-    expect(find.text('ticktok_game_frontend App is being generated...'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
-  });
+    // Check for the presence of the game status text.
+    expect(find.text("Player X's turn"), findsOneWidget);
 
-  testWidgets('App bar has correct title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    // Check for a Restart button.
+    expect(find.text('Restart'), findsOneWidget);
 
-    expect(find.text('ticktok_game_frontend'), findsOneWidget);
+    // Check if the 3x3 grid widget exists by Table.
+    expect(find.byType(Table), findsOneWidget);
   });
 }
